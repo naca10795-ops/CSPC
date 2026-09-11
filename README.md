@@ -1,23 +1,24 @@
 # CSPC - Computer Science for Physics and Chemistry
+My coursework repository. Each practical is under PW<n>/Lab <X>/.
 
-## PW1 Lab A
+## Setup
+Create the environment for a given lab:
+conda env create -f PW<n>/Lab\ <X>/environment.yml
+conda activate cspc
 
-### Automated tests
+---
 
-All 3 tests pass:
+## PW1 - Lab A: Reproducible Foundations
 
-- `test_starts_at_N0`
-- `test_rejects_negative_rate`
-- `test_matches_law`
+**What I built:**
+- (your one or two lines — e.g. decay simulation, tests, speed comparison)
 
-### Speed comparison
+**Speed comparison (loop vs NumPy):**
+- loop  : 3.9674 s
+- numpy : 0.0004 s
+- speed-up: 10424.03x faster
 
-For a simulation of 200,000 atoms:
+**Tests:** all passing? yes
 
-- Python loop: 3.9674 seconds
-- NumPy: 0.0004 seconds
-- Speed-up: 10424.03x
-
-### Conclusion
-
-The NumPy implementation is much faster than the pure-Python loop because it uses vectorized numerical operations instead of explicitly processing each atom with a Python loop.
+**Conclusion:**
+- (2-3 sentences in your own words)
