@@ -11,7 +11,7 @@ conda activate cspc
 ## PW1 - Lab A: Reproducible Foundations
 
 **What I built:**
-- (your one or two lines — e.g. decay simulation, tests, speed comparison)
+- A radioactive decay simulation (pure-Python and NumPy versions), tests verifying its behavior, and a speed comparison between the two implementations.
 
 **Speed comparison (loop vs NumPy):**
 - loop  : 3.9674 s
@@ -21,4 +21,4 @@ conda activate cspc
 **Tests:** all passing? yes
 
 **Conclusion:**
-- (2-3 sentences in your own words)
+- The NumPy implementation is much faster than the pure-Python loop because it uses vectorized numerical operations instead of explicitly processing each atom with a Python loop.
