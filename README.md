@@ -18,18 +18,20 @@ pytest -v
 ## PW1 — Lab A: Reproducible Foundations
 
 **What I built:**
+
 - A radioactive decay simulation (pure-Python loop and NumPy vectorised versions), a test suite verifying its behavior, and a speed comparison between the two implementations.
 
 **Speed comparison (loop vs NumPy):**
 
-| version              | time (s) |
-|-----------------------|----------|
-| pure-Python loop       | 3.9674   |
-| NumPy (vectorised)     | 0.0004   |
+| version | time (s) |
+|---------|----------|
+| pure-Python loop | 3.9674 |
+| NumPy (vectorised) | 0.0004 |
 
-Speed-up: 10424.03x faster
+- Speed-up: **10424.03× in this run**
 
-**Tests:** all passing? yes
+**Tests:** 3/3 passing
 
 **Conclusion:**
+
 - The NumPy implementation is much faster than the pure-Python loop because it processes all atoms at once with vectorized operations instead of looping over each one individually in Python. Working through this lab reinforced how much overhead per-element Python loops add compared to array-based NumPy operations.
