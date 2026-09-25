@@ -58,3 +58,27 @@ pytest -v
 
 * The observed data shows the expected decreasing decay behavior, while the analytical model provides a smooth exponential curve for comparison.
 * Snakemake makes the plotting workflow reproducible by automatically generating the figure from the input data.
+
+## PW2 — Lab A: Motion from Tracking Data
+
+**What I built:**
+
+* Loaded noisy free-fall position measurements from `freefall.csv`.
+* Used `np.gradient` to calculate velocity from position and acceleration from velocity.
+* Mean acceleration: **-8.5797 m/s²**.
+* Acceleration standard deviation: **28.7161 m/s²**.
+* Integrated the noisy acceleration to recover velocity and then position.
+* The largest difference between the recovered position and the original position was **0.7846 m**, which is within the expected 1 m range.
+* Created `motion.png` containing position, velocity, and acceleration versus time, with the true `-9.81 m/s²` acceleration marked on the acceleration plot.
+
+**Why is acceleration noisy?**
+
+The original position measurements contain measurement noise. Differentiation amplifies this noise, and taking the derivative twice makes the acceleration much noisier than the original position data. This is why the acceleration has a large standard deviation even though the position data looks relatively smooth.
+
+**What happened when integrating back?**
+
+Integrating the noisy acceleration back to velocity and then position reduces the effect of the random high-frequency noise. The recovered position was close to the original measurements, with a maximum difference of only **0.7846 m**.
+
+**Conclusion:**
+
+This lab demonstrates that numerical differentiation is very sensitive to measurement noise, while integration can recover a smooth quantity from noisy derivative data.
