@@ -82,3 +82,25 @@ Integrating the noisy acceleration back to velocity and then position reduces th
 **Conclusion:**
 
 This lab demonstrates that numerical differentiation is very sensitive to measurement noise, while integration can recover a smooth quantity from noisy derivative data.
+
+### PW2 — Lab A Bonus: 2D Trajectory
+
+**What I built:**
+
+* Loaded the 2D tracking data from `trajectory.csv`, containing time, x-position, and y-position.
+* Plotted the object's trajectory by plotting `x` against `y`.
+* Used `np.gradient` to calculate the velocity components:
+  * `vx = dx/dt`
+  * `vy = dy/dt`
+* Calculated the speed using `sqrt(vx² + vy²)`.
+* Created `trajectory.png` showing the object's path.
+* Created `speed.png` showing speed versus time.
+
+**Results:**
+
+* Minimum speed: **7.6690 m/s**
+* Maximum speed: **38.6930 m/s**
+
+**Conclusion:**
+
+The trajectory data shows a looping, butterfly-shaped path. The speed changes over time as the object's motion changes along the x and y directions.
