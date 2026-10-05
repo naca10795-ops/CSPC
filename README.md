@@ -107,86 +107,124 @@ The trajectory data shows a looping, butterfly-shaped path. The speed changes ov
 
 ## PW2 — Lab B: Optimization in Chemistry
 
-**What I built:**
+This lab explored how numerical optimization and root-finding methods can be used to solve practical problems in chemistry.
 
-* Compared three optimization approaches: gradient descent, Newton's method, and SLSQP.
+### Part 2 — Optimization Warm-up
 
-* Applied the methods to an easy convex function and a harder function with multiple stationary points.
+I compared three approaches:
 
-* Fitted the rate constant of a first-order chemical reaction using measured concentration data.
+* Gradient descent
+* Newton's method
+* SLSQP
 
-* Solved a chemical equilibrium problem using both Newton root-finding and SLSQP minimization.
+#### Easy function
 
-* Found the equivalence point of a titration curve by calculating where the pH slope is largest.
+For `f(x) = (x - 3)² + 1`, all three methods found the same minimum:
 
-**Part 2 — Optimization Warm-up:**
+| Method           |     Result |
+| ---------------- | ---------: |
+| Gradient descent | x ≈ 3.0000 |
+| Newton           | x = 3.0000 |
+| SLSQP            | x = 3.0000 |
 
-For the easy function \(f(x)=(x-3)^2+1\), all three methods converged to the same minimum:
+This function is convex and has one clear minimum, so all three methods converge to the same solution.
 
-* Gradient descent: \(x \approx 3.0000\)
+#### Harder function
 
-* Newton: \(x = 3.0000\)
+For `g(x) = x⁴ - 3x² + x + 5`, the behavior was more interesting because the function has several stationary points.
 
-* SLSQP: \(x = 3.0000\)
+| Starting point | Method           |      Result | Type        |
+| -------------- | ---------------- | ----------: | ----------- |
+| x₀ = 0         | Gradient descent | x ≈ -1.3008 | Minimum     |
+| x₀ = 0         | Newton           |  x ≈ 0.1699 | **Maximum** |
+| x₀ = 0         | SLSQP            | x ≈ -1.3009 | Minimum     |
+| x₀ = 2         | Gradient descent | x ≈ -1.3008 | Minimum     |
+| x₀ = 2         | Newton           |  x ≈ 1.1309 | Minimum     |
+| x₀ = 2         | SLSQP            | x ≈ -1.3006 | Minimum     |
 
-For the harder function \(g(x)=x^4-3x^2+x+5\), the results depended on the starting point for Newton's method:
+The important result is that **Newton's method finds a stationary point, not necessarily a minimum**. Its result also depends on the starting point.
 
-* From \(x_0=0\), gradient descent and SLSQP found the minimum near \(x=-1.3008\).
+For `x₀ = 0`, Newton converged to `x ≈ 0.1699`, where the second derivative is negative, so this point is a maximum.
 
-* From \(x_0=0\), Newton found \(x\approx0.1699\). Since \(g''(x)<0\), this is a **maximum**, not a minimum.
+For `x₀ = 2`, Newton converged to `x ≈ 1.1309`, where the second derivative is positive, so this point is a minimum.
 
-* From \(x_0=2\), gradient descent and SLSQP again found the minimum near \(x=-1.3008\).
+### Part 3 — Reaction-Rate Fitting
 
-* From \(x_0=2\), Newton found \(x\approx1.1309\). Since \(g''(x)>0\), this is a **minimum**.
+The goal was to estimate the rate constant of a first-order reaction from measured concentration data.
 
-This shows that Newton's method finds a stationary point, but that point is not necessarily a minimum. Its result can also depend strongly on the starting point.
+The reaction model was:
 
-**Part 3 — Reaction-Rate Fitting:**
+`C(t) = C₀ exp(-kt)`
 
-* Loaded the measured concentration data from `kinetics.csv`.
+I:
 
-* Used the first-order reaction model \(C(t)=C_0e^{-kt}\).
+* Loaded the experimental data from `kinetics.csv`.
+* Used the first measured concentration as `C₀`.
+* Defined the sum of squared errors between the measured and predicted concentrations.
+* Used SLSQP to find the value of `k` that minimized this error.
+* Plotted the measured data together with the fitted reaction curve.
 
-* Minimized the sum of squared differences between the measured and predicted concentrations using SLSQP.
+The fitted rate constant was:
 
-* The fitted rate constant was **\(k=0.26176\)**.
+**k = 0.26176**
 
-* Saved the measured data and fitted curve as `kinetics.png`.
+The resulting plot was saved as `kinetics.png`.
 
-**Part 4 — Chemical Equilibrium:**
+### Part 4 — Chemical Equilibrium
 
-For the reaction \(H_2+I_2\rightleftharpoons2HI\), with \(K=15.6\):
+I studied the reaction:
 
-* Newton root-finding gave an equilibrium extent of **\(x=0.6638477\)**.
+`H₂ + I₂ ⇌ 2HI`
 
-* SLSQP minimization gave **\(x=0.6638474\)**.
+with an equilibrium constant of:
 
-* The difference between the two methods was only **\(2.39\times10^{-7}\)**, so they agree.
+**K = 15.6**
 
-**Equilibrium amounts:**
+The equilibrium extent was calculated in two different ways:
 
-* \(H_2 = 0.33615\) mol
+1. Newton root-finding
+2. SLSQP minimization
 
-* \(I_2 = 0.33615\) mol
+| Method | Equilibrium extent |
+| ------ | -----------------: |
+| Newton |          0.6638477 |
+| SLSQP  |          0.6638474 |
 
-* \(HI = 1.32770\) mol
+The difference between the two results was only **2.39 × 10⁻⁷**, showing that the two methods agree very closely.
 
-* Saved the equilibrium composition plot as `equilibrium.png`.
+#### Equilibrium composition
 
-**Part 5 — Titration Bonus:**
+At equilibrium:
 
-* Loaded the titration data from `titration.csv`.
+| Substance |      Amount |
+| --------- | ----------: |
+| H₂        | 0.33615 mol |
+| I₂        | 0.33615 mol |
+| HI        | 1.32770 mol |
 
+The equilibrium composition plot was saved as `equilibrium.png`.
+
+### Part 5 — Titration Bonus
+
+For the titration problem, I determined the equivalence point from the pH curve.
+
+I:
+
+* Loaded the data from `titration.csv`.
 * Calculated the slope of the pH curve using `np.gradient(pH, V)`.
+* Used `np.argmax(slope)` to find the point where the pH was changing most rapidly.
+* Plotted both the titration curve and its slope.
 
-* Used `np.argmax(slope)` to find the volume where the slope was largest.
+The equivalence point was found at:
 
-* The equivalence point was found at **50.0** units of base volume.
+**50.0 units of base volume**
 
-* Created side-by-side plots of pH versus volume and slope versus volume.
+The final figure was saved as `titration.png`.
 
-* Saved the figure as `titration.png`.
+### Conclusion
 
-**Conclusion:**
+This lab showed how numerical methods can be applied to several practical chemistry problems.
 
-This lab demonstrated how different numerical optimization methods can be applied to practical chemistry problems. Newton's method is effective for finding stationary points but can converge to a maximum depending on the starting point, while SLSQP can directly minimize an objective function subject to bounds. The kinetics problem showed how optimization can estimate a reaction parameter from measured data, and the equilibrium problem showed that root-finding and minimization can produce essentially identical results. The titration bonus demonstrated how numerical differentiation can identify an equivalence point from experimental data.
+The optimization warm-up demonstrated an important difference between methods: **Newton's method finds stationary points and can therefore converge to a maximum, while SLSQP and gradient descent can be used to minimize an objective function.**
+
+The kinetics problem showed how optimization can estimate a reaction parameter from experimental data. The equilibrium problem demonstrated that root-finding and minimization can produce essentially identical results. Finally, the titration bonus showed how numerical differentiation can be used to identify an equivalence point from experimental measurements.
