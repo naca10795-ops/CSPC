@@ -275,6 +275,7 @@ age         0.9865  0.00607  Not Normal
 chol        0.9473      0.0  Not Normal
 trestbps    0.9665      0.0  Not Normal
 thalach     0.9765  0.00007  Not Normal
+```
 
 | Variable | Histogram observation | Boxplot observation | Q-Q plot observation | Shapiro–Wilk result | Final conclusion |
 | :--- | :--- | :--- | :--- | :--- | :--- |
