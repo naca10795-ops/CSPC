@@ -262,7 +262,6 @@ The dataset contains **303 observations and 14 columns**.
 ### Terminal Output
 
 ```text
-
 SHAPIRO-WILK Normality Test Results:
 
 Variable: age        | W-Stat: 0.9865 | p-value: 0.00607 | Verdict: Not Normal
