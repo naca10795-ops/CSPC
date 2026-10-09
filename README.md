@@ -251,6 +251,14 @@ The dataset contains **303 observations and 14 columns**.
 
 **Distribution and normality analysis:**
 
+![Age Histogram](PW3/age_histogram.png)
+
+![Cholesterol Histogram](PW3/chol_histogram.png)
+
+![Resting Blood Pressure Histogram](PW3/trestbps_histogram.png)
+
+![Maximum Heart Rate Histogram](PW3/thalach_histogram.png)
+
 | Variable | Histogram observation | Boxplot observation | Q-Q plot observation | Visual conclusion |
 |----------|-----------------------|---------------------|----------------------|-------------------|
 | `age` | Approximately symmetrical and roughly bell-shaped, with a possible secondary peak around 58–60. | Median around 56, relatively balanced spread, and no obvious outliers. | Most points follow the reference line, with minor deviations at the extremes. | Approximately normal based on visual inspection. |
