@@ -259,6 +259,24 @@ The dataset contains **303 observations and 14 columns**.
 
 ![Maximum Heart Rate Histogram](PW3/thalach_histogram.png)
 
+### Terminal Output
+
+```text
+
+SHAPIRO-WILK Normality Test Results:
+
+Variable: age        | W-Stat: 0.9865 | p-value: 0.00607 | Verdict: Not Normal
+Variable: chol       | W-Stat: 0.9473 | p-value: 0.00000 | Verdict: Not Normal
+Variable: trestbps   | W-Stat: 0.9665 | p-value: 0.00000 | Verdict: Not Normal
+Variable: thalach    | W-Stat: 0.9765 | p-value: 0.00007 | Verdict: Not Normal
+
+Final Summary Table:
+         Statistic  p-value     Verdict
+age         0.9865  0.00607  Not Normal
+chol        0.9473      0.0  Not Normal
+trestbps    0.9665      0.0  Not Normal
+thalach     0.9765  0.00007  Not Normal
+
 | Variable | Histogram observation | Boxplot observation | Q-Q plot observation | Shapiro–Wilk result | Final conclusion |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `age` | Approximately symmetrical and roughly bell-shaped, with a possible secondary peak around 58–60. | Median around 56, relatively balanced spread, and no obvious outliers. | Most points follow the reference line, with minor deviations at the extremes. | $W = 0.9865$, $p = 0.00607$ | Visually approximately normal, though rejected by Shapiro–Wilk due to mild tail deviation. |
