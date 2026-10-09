@@ -228,3 +228,48 @@ This lab showed how numerical methods can be applied to several practical chemis
 The optimization warm-up demonstrated an important difference between methods: **Newton's method finds stationary points and can therefore converge to a maximum, while SLSQP and gradient descent can be used to minimize an objective function.**
 
 The kinetics problem showed how optimization can estimate a reaction parameter from experimental data. The equilibrium problem demonstrated that root-finding and minimization can produce essentially identical results. Finally, the titration bonus showed how numerical differentiation can be used to identify an equivalence point from experimental measurements.
+
+## PW3 — Session 1: Statistical Analysis of the Heart Disease Dataset
+
+**What I built:**
+
+* Loaded the heart disease dataset from `heart.csv` using pandas.
+* Inspected the dataset dimensions, first five rows, and summary statistics.
+* Selected four numerical variables for distribution analysis:
+  * `age`: Age of the patients.
+  * `chol`: Serum cholesterol.
+  * `trestbps`: Resting blood pressure.
+  * `thalach`: Maximum heart rate achieved.
+* Created histograms with KDE curves using Seaborn to visualize the distributions.
+* Created boxplots to examine medians, spread, and potential outliers.
+* Created Q-Q plots to compare the observed distributions with a theoretical normal distribution.
+* Saved the generated figures in the `PW3` directory.
+
+**Dataset:**
+
+The dataset contains **303 observations and 14 columns**.
+
+**Distribution and normality analysis:**
+
+| Variable | Histogram observation | Boxplot observation | Q-Q plot observation | Visual conclusion |
+|----------|-----------------------|---------------------|----------------------|-------------------|
+| `age` | Approximately symmetrical and roughly bell-shaped, with a possible secondary peak around 58–60. | Median around 56, relatively balanced spread, and no obvious outliers. | Most points follow the reference line, with minor deviations at the extremes. | Approximately normal based on visual inspection. |
+| `chol` | Right-skewed, with a peak around 220–240 and a long upper tail extending beyond 500. | Median around 240, asymmetric upper spread, and several high outliers. | The upper tail departs substantially from the reference line. | Non-normal, with positive skewness and a heavy right tail. |
+| `trestbps` | Broad distribution centered around 130–135, with slight right skewness and an upper tail extending toward 200. | Median around 130, interquartile range approximately 120–140, and several high outliers. | Points follow the reference line reasonably well in the middle but deviate in the tails. | Roughly bell-shaped, but with departures from normality in the tails. |
+| `thalach` | Unimodal distribution with a peak around 160 and a longer lower-value tail. | Median around 153, asymmetric spread, and a potential low outlier around 71. | Points follow the line reasonably well in the middle but deviate at the lower tail. | Negatively skewed, with evidence of non-normality in the lower tail. |
+
+**Why were three types of plots used?**
+
+* Histograms show the overall shape of each distribution and help reveal skewness.
+* Boxplots summarize the median and interquartile range and highlight potential outliers.
+* Q-Q plots compare the observed quantiles with those expected under a normal distribution. Systematic departures from the reference line indicate possible non-normality.
+
+Using these plots together provides a more complete understanding of the distributions than relying on a single visualization.
+
+**Conclusion:**
+
+This session introduced exploratory data analysis and graphical methods for investigating distributions.
+
+The four variables exhibit different distributional characteristics. `age` appears approximately normal based on visual inspection, while `chol` shows clear right skewness and a heavy upper tail. `trestbps` is broadly bell-shaped but has tail deviations and high outliers. `thalach` shows negative skewness and a departure from normality in its lower tail.
+
+These observations demonstrate why distributions should be examined before applying statistical methods that rely on normality assumptions. The conclusions are based on graphical inspection rather than formal statistical tests.
