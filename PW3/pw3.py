@@ -60,3 +60,33 @@ for column in columns:
     plt.tight_layout()
     plt.savefig("PW3/" + column + "_qqplot.png")
     plt.show()
+
+# TASK 5: Shapiro-Wilk Test & Verdict Record
+print("SHAPIRO-WILK NORMALITY TEST RESULTS")
+
+verdicts = {}
+
+for column in columns:
+    # I run the Shapiro-Wilk test
+    stat, p_value = stats.shapiro(heart[column])
+
+    # Interpret p-value (alpha = 0.05)
+    # If p > 0.05 -> Normal distribution
+    # If p <= 0.05 -> Not normal distribution
+    is_normal = p_value > 0.05
+    verdict = "Approximately Normal" if is_normal else "Not Normal"
+
+    verdicts[column] = {
+        "Statistic": round(stat, 4),
+        "p-value": round(p_value, 5),
+        "Verdict": verdict,
+    }
+
+    print(
+        f"Variable: {column:10s} | W-Stat: {stat:.4f} | p-value: {p_value:.5f} | Verdict: {verdict}"
+    )
+
+# Summary DataFrame
+results_df = pd.DataFrame(verdicts).T
+print("\nFinal Summary Table:")
+print(results_df)

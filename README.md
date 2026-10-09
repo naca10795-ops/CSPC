@@ -259,20 +259,21 @@ The dataset contains **303 observations and 14 columns**.
 
 ![Maximum Heart Rate Histogram](PW3/thalach_histogram.png)
 
-| Variable | Histogram observation | Boxplot observation | Q-Q plot observation | Visual conclusion |
-|----------|-----------------------|---------------------|----------------------|-------------------|
-| `age` | Approximately symmetrical and roughly bell-shaped, with a possible secondary peak around 58–60. | Median around 56, relatively balanced spread, and no obvious outliers. | Most points follow the reference line, with minor deviations at the extremes. | Approximately normal based on visual inspection. |
-| `chol` | Right-skewed, with a peak around 220–240 and a long upper tail extending beyond 500. | Median around 240, asymmetric upper spread, and several high outliers. | The upper tail departs substantially from the reference line. | Non-normal, with positive skewness and a heavy right tail. |
-| `trestbps` | Broad distribution centered around 130–135, with slight right skewness and an upper tail extending toward 200. | Median around 130, interquartile range approximately 120–140, and several high outliers. | Points follow the reference line reasonably well in the middle but deviate in the tails. | Roughly bell-shaped, but with departures from normality in the tails. |
-| `thalach` | Unimodal distribution with a peak around 160 and a longer lower-value tail. | Median around 153, asymmetric spread, and a potential low outlier around 71. | Points follow the line reasonably well in the middle but deviate at the lower tail. | Negatively skewed, with evidence of non-normality in the lower tail. |
+| Variable | Histogram observation | Boxplot observation | Q-Q plot observation | Shapiro–Wilk result | Final conclusion |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `age` | Approximately symmetrical and roughly bell-shaped, with a possible secondary peak around 58–60. | Median around 56, relatively balanced spread, and no obvious outliers. | Most points follow the reference line, with minor deviations at the extremes. | $W = 0.9865$, $p = 0.00607$ | Visually approximately normal, though rejected by Shapiro–Wilk due to mild tail deviation. |
+| `chol` | Right-skewed, with a peak around 220–240 and a long upper tail extending beyond 500. | Median around 240, asymmetric upper spread, and several high outliers. | The upper tail departs substantially from the reference line. | $W = 0.9473$, $p = 0.00000$ | Non-normal (right-skewed with a heavy upper tail). |
+| `trestbps` | Broad distribution centered around 130–135, with slight right skewness and an upper tail extending toward 200. | Median around 130, interquartile range approximately 120–140, and several high outliers. | Points follow the reference line reasonably well in the middle but deviate in the tails. | $W = 0.9665$, $p = 0.00000$ | Non-normal (broadly bell-shaped but right-skewed with high outliers). |
+| `thalach` | Unimodal distribution with a peak around 160 and a longer lower-value tail. | Median around 153, asymmetric spread, and a potential low outlier around 71. | Points follow the line reasonably well in the middle but deviate at the lower tail. | $W = 0.9765$, $p = 0.00007$ | Non-normal (negatively skewed with lower tail departure). |
 
-**Why were three types of plots used?**
+### Why were these plots and statistical tests used?
 
-* Histograms show the overall shape of each distribution and help reveal skewness.
-* Boxplots summarize the median and interquartile range and highlight potential outliers.
-* Q-Q plots compare the observed quantiles with those expected under a normal distribution. Systematic departures from the reference line indicate possible non-normality.
+* **Histograms** show the overall shape of each distribution and help reveal skewness.
+* **Boxplots** summarize the median and interquartile range and highlight potential outliers.
+* **Q-Q plots** compare the observed quantiles with those expected under a normal distribution. Systematic departures from the reference line indicate possible non-normality.
+* **Shapiro–Wilk test** provides a formal statistical hypothesis test for normality ($H_0$: data is normally distributed).
 
-Using these plots together provides a more complete understanding of the distributions than relying on a single visualization.
+Using visual plots together with formal testing provides a complete understanding of the distributions.
 
 **Conclusion:**
 
@@ -281,3 +282,5 @@ This session introduced exploratory data analysis and graphical methods for inve
 The four variables exhibit different distributional characteristics. `age` appears approximately normal based on visual inspection, while `chol` shows clear right skewness and a heavy upper tail. `trestbps` is broadly bell-shaped but has tail deviations and high outliers. `thalach` shows negative skewness and a departure from normality in its lower tail.
 
 These observations demonstrate why distributions should be examined before applying statistical methods that rely on normality assumptions. The conclusions are based on graphical inspection rather than formal statistical tests.
+
+The formal **Shapiro–Wilk test** rejected the null hypothesis of normality ($p < 0.05$) for all four variables. This highlights the distinction between statistical significance and practical visual normality in larger sample sizes ($N = 303$), demonstrating why distributions should be thoroughly examined before applying statistical methods that rely on normality assumptions.
