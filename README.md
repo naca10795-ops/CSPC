@@ -302,3 +302,128 @@ The four variables exhibit different distributional characteristics. `age` appea
 These observations demonstrate why distributions should be examined before applying statistical methods that rely on normality assumptions. The conclusions are based on graphical inspection rather than formal statistical tests.
 
 The formal **Shapiro–Wilk test** rejected the null hypothesis of normality ($p < 0.05$) for all four variables. This highlights the distinction between statistical significance and practical visual normality in larger sample sizes ($N = 303$), demonstrating why distributions should be thoroughly examined before applying statistical methods that rely on normality assumptions.
+
+## PW3 — Session 2: Hypothesis Testing, Correlation, and Causation
+
+### Task 4 — Comparing Maximum Heart Rate
+
+I divided the patients into two groups according to the `target` variable:
+
+- `target = 1`: Patients with heart disease.
+- `target = 0`: Patients without heart disease.
+
+I calculated the mean maximum heart rate for each group and used the Mann–Whitney U test to investigate whether their distributions differed significantly.
+
+| Patient group | Number of patients | Mean maximum heart rate |
+| :--- | ---: | ---: |
+| Heart disease | 139 | 139.26 bpm |
+| No heart disease | 164 | 158.38 bpm |
+
+The difference between the means was approximately **19.12 bpm**, with the heart disease group having the lower mean.
+
+The Mann–Whitney U test produced:
+
+- U statistic: 5806.50
+- p-value: 1.86 × 10⁻¹³
+
+Since the p-value is below 0.05, the difference is statistically significant. There is strong evidence that the two groups have different maximum heart rate distributions.
+
+### Uncertainty Estimates
+
+I calculated the standard error for each group and estimated the 95% confidence intervals using the mean ± 2 standard errors approximation.
+
+| Patient group | Standard error | Approximate 95% confidence interval |
+| :--- | ---: | :--- |
+| Heart disease | 1.92 bpm | [135.43, 143.09] bpm |
+| No heart disease | 1.50 bpm | [155.38, 161.38] bpm |
+
+The confidence intervals do not overlap, which is consistent with the observed difference between the group means. These intervals are approximate.
+
+![Maximum heart rate comparison](PW3/thalach_group_comparison.png)
+
+*Figure: Mean maximum heart rate by heart disease status. Error bars represent standard errors.*
+
+### Task 5 — Relationship Between Age and Maximum Heart Rate
+
+I used Pearson's correlation coefficient to investigate the linear relationship between age and maximum heart rate.
+
+Results:
+
+- Pearson correlation coefficient: **r = -0.3938**
+- p-value: **1.11 × 10⁻¹²**
+
+The correlation is negative and statistically significant. This indicates a moderate negative linear association: older patients in this dataset tend to have lower maximum heart rates.
+
+The coefficient of determination is approximately:
+
+**r² = 0.1551**, or 15.51%.
+
+This means that approximately 15.51% of the variation in maximum heart rate is associated with its linear relationship with age in this sample. It does not establish a causal relationship.
+
+![Age and maximum heart rate scatterplot](PW3/age_thalach_scatter.png)
+
+*Figure: Relationship between patient age and maximum heart rate.*
+
+### Task 6 — Chemicals and Malignancy
+
+I investigated the correlations between benzene, cadmium, pollution index, age, and malignancy using Pearson's correlation coefficient.
+
+| Variable | Pearson correlation | p-value | Interpretation |
+| :--- | ---: | ---: | :--- |
+| Benzene | 0.3847 | 1.28 × 10⁻³⁶ | Moderate positive correlation |
+| Cadmium | 0.8800 | Extremely small | Very strong positive correlation |
+| Pollution index | 0.8951 | Extremely small | Very strong positive correlation |
+| Age | -0.0338 | 0.2851 | No statistically significant linear correlation |
+
+Cadmium and pollution index have very strong positive correlations with malignancy in the original dataset. Benzene also has a statistically significant positive correlation, while age does not show a statistically significant linear association.
+
+However, correlation alone cannot establish that any of these variables causes malignancy.
+
+### Task 7 — Investigating a Potential Confounding Variable
+
+To investigate whether pollution might help explain the chemical–malignancy associations, I restricted the dataset to patients with a pollution index between 40 and 60.
+
+This left **199 observations**.
+
+| Chemical | Original correlation with malignancy | Correlation after restricting pollution index |
+| :--- | ---: | ---: |
+| Benzene | 0.3847 | 0.7016 |
+| Cadmium | 0.8800 | 0.3157 |
+
+Within the restricted group:
+
+- **Benzene:** r = 0.7016, p ≈ 8.08 × 10⁻³¹.
+- **Cadmium:** r = 0.3157, p ≈ 5.57 × 10⁻⁶.
+
+Both associations remain statistically significant. However, cadmium's correlation becomes substantially weaker, while benzene's correlation becomes stronger.
+
+This suggests that the original association between cadmium and malignancy may partly reflect its relationship with pollution. Benzene's association remains strong among observations with a pollution index between 40 and 60.
+
+**Limitations:** Restricting the pollution index to a range does not make pollution identical for every observation, and age has not been controlled for. This analysis cannot establish which chemical causes malignancy or prove that either chemical is the real cause. Further analysis controlling for multiple variables would be needed to investigate these relationships more thoroughly.
+
+### Bonus Task — Entropy
+
+I calculated the entropy of the binary `target` variable to measure the uncertainty associated with its class distribution.
+
+| Category | Proportion |
+| :--- | ---: |
+| No heart disease (`target = 0`) | 54.13% |
+| Heart disease (`target = 1`) | 45.87% |
+
+The calculated entropy was:
+
+**H = 0.9951 bits**
+
+For a binary variable, entropy reaches its maximum of 1 bit when both categories have equal probabilities. Since the two proportions in this dataset are close to 50%, the entropy is close to its maximum.
+
+This indicates that the target classes are relatively balanced. Entropy can also be used in decision trees to measure the reduction in uncertainty produced by a split. However, the entropy of the target alone does not measure a model's predictive accuracy.
+
+### Session 2 Conclusion
+
+This session demonstrated how hypothesis testing can be used to investigate differences between groups, how correlation measures linear associations, and why statistical significance does not establish causation.
+
+The heart disease analysis showed a statistically significant difference in maximum heart rate between the two patient groups. Age also showed a moderate negative correlation with maximum heart rate.
+
+The chemicals and malignancy analysis demonstrated how an association can change after restricting observations according to a potential confounding variable. These results highlight the importance of investigating confounding before drawing causal conclusions.
+
+Finally, the entropy calculation illustrated how uncertainty can be quantified from class proportions and how this concept relates to decision tree learning.
